@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#16123f",
     borderRadius: 10,
     borderBottomColor:"black"
+
     
   },
   items: {
