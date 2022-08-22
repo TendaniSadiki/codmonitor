@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     backgroundColor: "#f16775",
     color: "#f6f5f3",
-    padding:15,
+    padding:10,
     margin:25
   },
   itemContainer: {
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     marginVertical: 5,
-    backgroundColor: "#9cacbf",
+    backgroundColor: "#16123f",
+    borderRadius: 10,
     
   },
   items: {
