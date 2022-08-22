@@ -32,8 +32,8 @@ export default function App() {
                         keyExtractor={({item}) =>  item.rank}
                         numColumns={5}>
                             <TouchableOpacity>
-                            <Text style={{ margin: 'auto', padding: 10}}>{item.rank}</Text>
-                           <Text style={styles.items}>{item.username}</Text>
+                            <Text style={{ margin: 'auto', padding: 10, color:'#f6f5f3'}}>Player: {item.rank}</Text>
+                           <Text style={styles.items}>Username: {item.username}</Text>
                            <Text style={styles.items}>Level: {item.values.level}</Text>
                            <Text style={styles.items}>Deaths: {item.values.deaths}</Text>
                            <Text style={styles.items}>Kills: {item.values.kills}</Text>
