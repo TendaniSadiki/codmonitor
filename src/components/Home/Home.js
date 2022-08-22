@@ -1,37 +1,91 @@
-import React, { Component } from 'react';
-import { Button, View, StyleSheet } from 'react-native';
-import * as Linking from 'expo-linking';
-import Constants from 'expo-constants';
+import React, {useEffect, useState} from 'react';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 
-export default class Home extends Component {
-  render() {
-    return (
-      <View style={styles.homeContainer}>
-        <Button
-          title="Login to COD"
-          onPress={this._handleOpenWithLinking}
-          style={styles.button}
-        />
+export default function App() {
+  const [showResults, setShowResults] = useState(false)
+  const [data, setData] = useState(null)
+  
+  const fetchUsers = () => {
+    fetch(`https://www.callofduty.com/api/papi-client/leaderboards/v2/title/mw/platform/psn/time/alltime/type/core/mode/career/page/1`)
+    .then(response => response.json())
+    .then((data) => setData(data))
 
-      </View>
-    );
+    if(data === null) { 
+      setShowResults(false)
+    }
+    else if( data !== null) {
+      setShowResults(true)
+    }
   }
-  _handleOpenWithLinking = () => {
-    Linking.openURL('https://profile.callofduty.com/cod/login');
-  };
+
+  useEffect(() => {
+    fetchUsers()
+  }, [data])
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Call of Duty: MW Leaderboard</Text>
+      {
+        showResults ? 
+                        <FlatList
+                        data={data.data.entries}
+                        renderItem={({item}) => <View style={styles.itemContainer}
+                        keyExtractor={({item}) =>  item.rank}
+                        numColumns={5}>
+                            <TouchableOpacity>
+                            <Text style={{ margin: 'auto', padding: 10}}>{item.rank}</Text>
+                           <Text style={styles.items}>{item.username}</Text>
+                           <Text style={styles.items}>Level: {item.values.level}</Text>
+                           <Text style={styles.items}>Deaths: {item.values.deaths}</Text>
+                           <Text style={styles.items}>Kills: {item.values.kills}</Text>
+                           <Text style={styles.items}>Wins: {item.values.wins}</Text>
+                           <Text style={styles.items}>Losses: {item.values.losses}</Text>
+                           <Text style={styles.items}>Ratings: {item.rating}</Text>
+                           <Text style={styles.items}>Time Played: {item.values.timePlayed}</Text>
+                           <Text style={styles.items}>Hits: {item.values.hits}</Text>
+                           <Text style={styles.items}>Head Shot: {item.values.headshots}</Text>
+                           <Text style={styles.items}>Misses: {item.values.misses}</Text>
+                         
+                            </TouchableOpacity>
+                        </View>
+                      }/> : 
+                            <Text>Nothing to show</Text>
+      }
+  </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  homeContainer: {
+  container: {
     flex: 1,
+    backgroundColor: '#52ab98',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#F6F5F3',
-  },
-  button: {
+    justifyContent: 'flex-start',
     
   },
+  title: {
+    paddingVertical: 40,
+    borderRadius: 10,
+    fontSize: 24,
+    backgroundColor: "#f16775",
+    color: "#f6f5f3",
+    padding:15,
+    margin:25
+  },
+  itemContainer: {
+    flex:1, 
+    flexDirection: 'row', 
+    width:Dimensions.get("window").width-10,
+    borderWidth: 1,
+    borderRadius: 3,
+    marginVertical: 5,
+    backgroundColor: "#9cacbf",
+    
+  },
+  items: {
+    flex:1,
+    padding: 10,
+    flexDirection: 'row',
+    color: "#f6f5f3",
+  },
+
 });
-
-
