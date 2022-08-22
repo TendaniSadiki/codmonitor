@@ -80,6 +80,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: "#16123f",
     borderRadius: 10,
+    borderBottomColor:"black"
+
     
   },
   items: {
