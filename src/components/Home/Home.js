@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 
+import { FaShare } from 'react-icons/fa';
+
+
 export default function App() {
   const [showResults, setShowResults] = useState(false)
   const [data, setData] = useState(null)
   
   const fetchUsers = () => {
-    fetch(`https://www.callofduty.com/api/papi-client/leaderboards/v2/title/mw/platform/psn/time/alltime/type/core/mode/career/page/1`)
+    fetch(`https://www.callofduty.com/api/papi-client/leaderboards/v2/title/mw/platform/psn/time/alltime/type/core/mode/career/page/1 `)
     .then(response => response.json())
     .then((data) => setData(data))
 
@@ -21,6 +24,9 @@ export default function App() {
   useEffect(() => {
     fetchUsers()
   }, [data])
+
+  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Call of Duty: MW Leaderboard</Text>
@@ -31,7 +37,10 @@ export default function App() {
                         renderItem={({item}) => <View style={styles.itemContainer}
                         keyExtractor={({item}) =>  item.rank}
                         numColumns={5}>
-                            <TouchableOpacity>
+
+
+                          
+                            <TouchableOpacity  >
                             <Text style={{ margin: 'auto', padding: 10, color:'#f6f5f3'}}>Player: {item.rank}</Text>
                            <Text style={styles.items}>Username: {item.username}</Text>
                            <Text style={styles.items}>Level: {item.values.level}</Text>
@@ -44,7 +53,8 @@ export default function App() {
                            <Text style={styles.items}>Hits: {item.values.hits}</Text>
                            <Text style={styles.items}>Head Shot: {item.values.headshots}</Text>
                            <Text style={styles.items}>Misses: {item.values.misses}</Text>
-                         
+                           <Text  style={styles.items}>Share <FaShare/></Text>
+                           
                             </TouchableOpacity>
                         </View>
                       }/> : 
