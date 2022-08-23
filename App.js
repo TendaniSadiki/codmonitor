@@ -3,6 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import Home from './src/components/Home/Home';
 import { StatusBar } from 'expo-status-bar';
 
+import { StyleSheet, Text, View } from 'react-native';
+import Home from './src/components/Home/Home'
+export default function App() {
+  return (
+    <View style={styles.container}>
+      
+      <StatusBar style="auto" />
+
+      <Home/>
+    </View>
+  );
+
+
 
 export default class App extends Component {
 
@@ -16,6 +29,7 @@ export default class App extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
